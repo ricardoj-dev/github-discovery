@@ -1,11 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./components/App.tsx";
-import AuthenticationPage from "./pages/AuthenticationPage.tsx";
 import DiscoveryPage from "./pages/DiscoveryPage.tsx";
 import MyAccountPage from "./pages/MyAccountPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import Layout from "./components/Layout.tsx";
+import AuthenticationPage from "./pages/AuthenticationPage.tsx";
 
 const router = createBrowserRouter([
   {

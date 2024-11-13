@@ -1,7 +1,6 @@
-import React from "react";
 import { Outlet, Link } from "react-router-dom";
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <header className="bg-gray-800 text-white p-4">
       <nav className="flex justify-between items-center">
@@ -19,15 +18,15 @@ const Header: React.FC = () => {
   );
 };
 
-const Content: React.FC = () => {
+const Content = () => {
   return (
-    <main className="flex-grow p-8">
+    <main className="flex-grow p-8 ">
       <Outlet />
     </main>
   );
 };
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white p-4 text-center">
       All Rights Reserved ® Ricardo 2024
@@ -35,7 +34,7 @@ const Footer: React.FC = () => {
   );
 };
 
-const Layout: React.FC = () => {
+const Layout = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
