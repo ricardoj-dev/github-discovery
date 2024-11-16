@@ -1,6 +1,7 @@
 import SignInForm from "../components/SignInForm";
 import { useState } from "react";
 import SignUpForm from "../components/SignUpForm";
+import { Toaster } from "react-hot-toast";
 
 export default function AuthenticationPage() {
   const [isSignInPage, setIsSignInPage] = useState(true);
@@ -40,6 +41,8 @@ export default function AuthenticationPage() {
           </p>
         </>
       )}
+
+      <Toaster position="top-center" />
     </div>
   );
 }
