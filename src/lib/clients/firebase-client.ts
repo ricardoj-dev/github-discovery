@@ -1,5 +1,21 @@
 import { auth } from "@/config/firebase";
-import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  UserCredential,
+} from "firebase/auth";
+
+async function loginUserWithEmailAndPassword(
+  email: string,
+  password: string
+): Promise<UserCredential> {
+  return await signInWithEmailAndPassword(auth, email, password);
+}
+
+async function logOut() {
+  await signOut(auth);
+}
 
 async function registerUserWithEmailAndPassword(
   email: string,
@@ -9,6 +25,8 @@ async function registerUserWithEmailAndPassword(
 }
 
 const firebaseClient = {
+  loginUserWithEmailAndPassword,
+  logOut,
   registerUserWithEmailAndPassword,
 };
 
