@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "./ui/button";
+import LoadingSpinner from "./LoadingSpinner";
+import { useState } from "react";
+import { useAuth } from "@/lib/hooks";
+import userService from "@/lib/user-service";
+import { handleError } from "@/lib/utils";
 
 const updateInformationSchema = z.object({
   username: z
@@ -14,6 +20,9 @@ const updateInformationSchema = z.object({
 type UpdateInformationSchema = z.infer<typeof updateInformationSchema>;
 
 const UpdateInformationForm = () => {
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -22,8 +31,24 @@ const UpdateInformationForm = () => {
     resolver: zodResolver(updateInformationSchema),
   });
 
-  const handleUpdateInformation = (data: UpdateInformationSchema) => {
-    console.log(data);
+  const handleUpdateInformation = async (data: UpdateInformationSchema) => {
+    if (user) {
+      setIsLoading(true);
+
+      try {
+        await userService.setUsernameAndEmail(
+          user.uid,
+          data.username,
+          data.email || ""
+        );
+
+        window.location.reload();
+      } catch (error) {
+        handleError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
@@ -58,12 +83,13 @@ const UpdateInformationForm = () => {
           <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
         )}
       </div>
-      <button
-        type="submit"
-        className="w-full p-3 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Save
-      </button>
+      <Button variant="formActive" size={"form"} disabled={isLoading}>
+        {isLoading === true ? (
+          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
+        ) : (
+          "Save"
+        )}
+      </Button>
     </form>
   );
 };
