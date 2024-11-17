@@ -24,10 +24,12 @@ const CarouselItem = ({
 
   const splittedFullName = repository.full_name.split("/");
 
-  const handleStarClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const handleStarClick = async (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleBookmark(repository);
+    await toggleBookmark(repository);
   };
 
   return (
