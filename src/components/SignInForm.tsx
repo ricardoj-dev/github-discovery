@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Button } from "./ui/button";
+import LoadingSpinner from "./LoadingSpinner";
+import { useState } from "react";
+import authService from "@/lib/auth-service";
+import { handleError } from "@/lib/utils";
 
 const signInSchema = z.object({
   username: z
@@ -18,6 +23,8 @@ const signInSchema = z.object({
 type SignInSchema = z.infer<typeof signInSchema>;
 
 const SignInForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -26,8 +33,16 @@ const SignInForm = () => {
     resolver: zodResolver(signInSchema),
   });
 
-  const handleSignIn = (data: SignInSchema) => {
-    console.log(data);
+  const handleSignIn = async (data: SignInSchema) => {
+    setIsLoading(true);
+
+    try {
+      await authService.signIn(data.username, data.password);
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -62,12 +77,13 @@ const SignInForm = () => {
           <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
         )}
       </div>
-      <button
-        type="submit"
-        className="w-full p-3 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Sign In
-      </button>
+      <Button variant="formActive" size={"form"} disabled={isLoading}>
+        {isLoading === true ? (
+          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
+        ) : (
+          "Sign In"
+        )}
+      </Button>
     </form>
   );
 };
