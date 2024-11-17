@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   UserCredential,
+  updateEmail,
 } from "firebase/auth";
 
 async function loginUserWithEmailAndPassword(
@@ -24,10 +25,17 @@ async function registerUserWithEmailAndPassword(
   return await createUserWithEmailAndPassword(auth, email, password);
 }
 
+async function setUserEmail(email: string) {
+  if (auth.currentUser) {
+    await updateEmail(auth.currentUser, email);
+  }
+}
+
 const firebaseClient = {
   loginUserWithEmailAndPassword,
   logOut,
   registerUserWithEmailAndPassword,
+  setUserEmail,
 };
 
 export default firebaseClient;
