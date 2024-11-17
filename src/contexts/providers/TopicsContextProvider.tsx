@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TopicsContext from "../TopicsContext";
 import { TopicItem } from "@/types";
 import { useAuth } from "@/lib/hooks";
@@ -17,6 +17,14 @@ export default function TopicsContextProvider({
   const [topics, setTopics] = useState<TopicItem[]>(
     user?.topics || appConstants.initialTopics
   );
+
+  useEffect(() => {
+    if (user && user.topics) {
+      setTopics(user.topics);
+    } else {
+      setTopics(appConstants.initialTopics);
+    }
+  }, [user]);
 
   const toggleTopic = async (topicToToggle: TopicItem) => {
     const updatedTopics = topics.map((topic) =>
