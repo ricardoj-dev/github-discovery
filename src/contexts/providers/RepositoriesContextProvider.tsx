@@ -82,6 +82,22 @@ export default function RepositoriesContextProvider({
     fetchRepositories();
   }, [activeTopics, repositoriesFromTopics, sortOptions]);
 
+  useEffect(() => {
+    const deactivatedTopics = Object.keys(repositoriesFromTopics).filter(
+      (topic) => !activeTopics.some((activeTopic) => activeTopic.name === topic)
+    );
+
+    if (deactivatedTopics.length > 0) {
+      setRepositoriesFromTopics((prev) => {
+        const updatedRepositories = { ...prev };
+        deactivatedTopics.forEach((topic) => {
+          delete updatedRepositories[topic];
+        });
+        return updatedRepositories;
+      });
+    }
+  }, [activeTopics, repositoriesFromTopics]);
+
   const fetchRepositoriesBySortOption = async (
     topic: Topic,
     sortOption: SortOption
