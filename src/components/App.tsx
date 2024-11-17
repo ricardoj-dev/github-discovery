@@ -1,14 +1,13 @@
-import React from "react";
+import { useAuth } from "@/lib/hooks";
 import { Navigate } from "react-router-dom";
 
-const App: React.FC = () => {
-  // const isLoggedIn = false;
-  const isLoggedIn = true;
+const App = () => {
+  const { isAuthenticated } = useAuth();
 
-  return isLoggedIn ? (
+  return isAuthenticated ? (
     <Navigate to="/discovery" />
   ) : (
-    <Navigate to="/authentication" />
+    <Navigate to="/sign-in" />
   );
 };
 
