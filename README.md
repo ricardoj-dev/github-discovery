@@ -1,2 +1,8 @@
 # github-discovery
-Github repository discovery website with layouts inspired by Netflix.
+Github repository discovery website.
+
+## To run the application
+- npm run dev
+
+## To test the application
+- npm run test
