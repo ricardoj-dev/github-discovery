@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import authService from "@/lib/auth-service";
+import { handleError } from "@/lib/utils";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import LoadingSpinner from "./LoadingSpinner";
 
 const signUpSchema = z
   .object({
@@ -34,6 +39,9 @@ const signUpSchema = z
 type SignUpSchema = z.infer<typeof signUpSchema>;
 
 const SignUpForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -42,9 +50,31 @@ const SignUpForm = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const handleSignUp = (data: SignUpSchema) => {
-    console.log(data);
+  const handleSignUp = async (data: SignUpSchema) => {
+    setIsLoading(true);
+
+    try {
+      await authService.signUp(data.username, data.email, data.password);
+      await authService.signIn(data.username, data.password);
+
+      setIsRedirecting(true);
+
+      window.location.replace("/discovery");
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (isLoading || isRedirecting) {
+    return (
+      <LoadingSpinner
+        classesContainer="fixed top-0 left-0 w-full h-full flex-grow min-h-screen flex flex-col justify-items-center bg-gray-400 z-50"
+        classesSpinner="border-black"
+      />
+    );
+  }
 
   return (
     <form
@@ -54,6 +84,7 @@ const SignUpForm = () => {
       <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
       <div className="mb-4">
         <input
+          disabled={isLoading}
           type="text"
           placeholder="Username"
           {...register("username")}
@@ -67,6 +98,7 @@ const SignUpForm = () => {
       </div>
       <div className="mb-4">
         <input
+          disabled={isLoading}
           type="text"
           placeholder="E-mail"
           {...register("email")}
@@ -80,6 +112,7 @@ const SignUpForm = () => {
       </div>
       <div className="mb-4">
         <input
+          disabled={isLoading}
           type="password"
           placeholder="Password"
           {...register("password")}
@@ -93,6 +126,7 @@ const SignUpForm = () => {
       </div>
       <div className="mb-4">
         <input
+          disabled={isLoading}
           type="password"
           placeholder="Confirm Password"
           {...register("confirmPassword")}
@@ -106,12 +140,13 @@ const SignUpForm = () => {
           </p>
         )}
       </div>
-      <button
-        type="submit"
-        className="w-full p-3 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Sign Up
-      </button>
+      <Button variant="formActive" size={"form"} disabled={isLoading}>
+        {isLoading ? (
+          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
+        ) : (
+          "Sign Up"
+        )}
+      </Button>
     </form>
   );
 };
