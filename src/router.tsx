@@ -5,7 +5,9 @@ import DiscoveryPage from "./pages/DiscoveryPage.tsx";
 import MyAccountPage from "./pages/MyAccountPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import Layout from "./components/Layout.tsx";
-import AuthenticationPage from "./pages/AuthenticationPage.tsx";
+import SignInPage from "./pages/SignInPage.tsx";
+import SignUpPage from "./pages/SignUpPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,19 +16,28 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/authentication",
-    element: <AuthenticationPage />,
+    path: "/sign-in",
+    element: <SignInPage />,
   },
   {
-    element: <Layout />,
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
+  {
+    element: <ProtectedRoute />,
     children: [
       {
-        path: "/discovery",
-        element: <DiscoveryPage />,
-      },
-      {
-        path: "/my-account",
-        element: <MyAccountPage />,
+        element: <Layout />,
+        children: [
+          {
+            path: "/discovery",
+            element: <DiscoveryPage />,
+          },
+          {
+            path: "/my-account",
+            element: <MyAccountPage />,
+          },
+        ],
       },
     ],
   },
