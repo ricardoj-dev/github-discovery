@@ -42,11 +42,6 @@ export default function AuthContextProvider({ children }: AuthContextProvider) {
               JSON.stringify(customUser)
             );
 
-            console.log(
-              "customUser.bookmarks: ",
-              customUser?.bookmarks?.length
-            );
-
             // Redirects if the user is on the sign-in page.
             if (window.location.pathname === "/sign-in") {
               window.location.replace("/discovery");
