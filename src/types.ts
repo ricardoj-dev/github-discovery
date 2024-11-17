@@ -1,4 +1,5 @@
-export type Repository = {
+import { User } from "firebase/auth";
+export interface Repository {
   id: string;
   full_name: string;
   description: string;
@@ -7,29 +8,44 @@ export type Repository = {
   forks_count: number;
   html_url: string;
   is_bookmarked?: boolean;
-};
+}
+
+export interface ApplicationUser extends User {
+  username: string;
+  bookmarks?: Repository[];
+  topics?: TopicItem[];
+  sortOptions?: SortOptionsMap;
+}
 
 export type Topic = "Vue" | "TypeScript" | "Javascript" | "Go" | "CSS" | "Node";
 
 export type SortOption = "stars" | "forks" | "interactions" | "updated";
 
-export type TopicItem = {
+export type FetchRepositoriesResponse = {
+  data: {
+    items: Repository[];
+  };
+  rateLimitRemaining: string | null;
+  rateLimitReset: string | null;
+};
+
+export interface TopicItem {
   name: Topic;
   isActive: boolean;
-};
+}
 
-export type RepositoriesMap = {
-  [topic in Topic]?: Repository[];
-};
+export interface RepositoriesMap {
+  [topic: string]: Repository[];
+}
 
-export type LoadingRepositoriesFromTopicsMap = {
-  [key in Topic]?: boolean;
-};
+export interface LoadingRepositoriesFromTopicsMap {
+  [topic: string]: boolean;
+}
 
-export type SortOptionsMap = {
-  [key in Topic]?: SortOption;
-};
+export interface SortOptionsMap {
+  [topic: string]: SortOption;
+}
 
-export type SortOptionsListMap = {
-  [key in SortOption]?: string;
-};
+export interface SortOptionsListMap {
+  [key: string]: string;
+}
