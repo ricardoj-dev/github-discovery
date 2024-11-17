@@ -60,7 +60,7 @@ const UpdateInformationForm = () => {
       <div className="mb-4">
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Username*"
           {...register("username")}
           className={`w-full p-3 border rounded-lg outline-none ${
             errors.username ? "border-red-500" : "border-gray-300"
