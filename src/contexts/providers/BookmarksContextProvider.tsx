@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RepositoriesMap, Repository } from "@/types";
 import BookmarksContext from "../BookmarksContext";
 import { useAuth, useRepositoriesContext } from "@/lib/hooks";
@@ -17,6 +17,12 @@ export default function BookmarksContextProvider({
   const [bookmarks, setBookmarks] = useState<Repository[]>(
     user?.bookmarks || []
   );
+
+  useEffect(() => {
+    if (user && user.bookmarks) {
+      setBookmarks(user.bookmarks);
+    }
+  }, [user]);
 
   const toggleBookmark = async (repository: Repository) => {
     const isBookmarked = bookmarks.some((item) => item.id === repository.id);
