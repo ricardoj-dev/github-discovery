@@ -1,17 +1,37 @@
-import { Outlet, Link } from "react-router-dom";
+import { useAuth } from "@/lib/hooks";
+import { Toaster } from "react-hot-toast";
+import { Outlet, Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+  const location = useLocation();
+  const { user, signOut } = useAuth();
+
   return (
-    <header className="bg-gray-800 text-white p-4">
+    <header className="bg-gray-400 shadow-md text-white py-4 px-8">
       <nav className="flex justify-between items-center">
-        <h1 className="text-lg font-bold">GitHub Discovery</h1>
-        <div>
-          <Link to="/discovery" className="mx-2">
-            Discovery
+        <div className="flex gap-2">
+          <Link to="/discovery">
+            <h1 className="text-lg font-bold">GitHub Discovery</h1>
           </Link>
-          <Link to="/my-account" className="mx-2">
-            My Account
+          <Link
+            to="/discovery"
+            className={`${
+              location.pathname === "/discovery" ? "underline" : null
+            }`}
+          >
+            <h3 className="text-lg">Discovery</h3>
           </Link>
+        </div>
+        <div className="flex gap-2">
+          <Link
+            to="/my-account"
+            className={`${
+              location.pathname === "/my-account" ? "underline" : null
+            }`}
+          >
+            <h3 className="text-lg">{user?.username}</h3>
+          </Link>
+          <button onClick={() => signOut()}>Logout</button>
         </div>
       </nav>
     </header>
@@ -20,7 +40,7 @@ const Header = () => {
 
 const Content = () => {
   return (
-    <main className="flex-grow p-8 ">
+    <main className="flex-grow bg-gray-100 p-8">
       <Outlet />
     </main>
   );
@@ -28,8 +48,8 @@ const Content = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4 text-center">
-      All Rights Reserved ® Ricardo 2024
+    <footer className="bg-gray-400 shadow-md text-white p-4 text-center">
+      All Rights Reserved ® GitHub Discovery 2024
     </footer>
   );
 };
@@ -40,6 +60,7 @@ const Layout = () => {
       <Header />
       <Content />
       <Footer />
+      <Toaster position="top-center" />
     </div>
   );
 };
