@@ -2,10 +2,20 @@ import { useContext } from "react";
 import RepositoriesContext from "@/contexts/RepositoriesContext";
 import TopicsContext from "@/contexts/TopicsContext";
 import BookmarksContext from "@/contexts/BookmarksContext";
+import AuthContext from "@/contexts/AuthContext";
 
 // ----------------
 // --- Contexts ---
 // ----------------
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuthContext must be used within an AuthProvider");
+  }
+  return context;
+};
 
 export const useBookmarksContext = () => {
   const context = useContext(BookmarksContext);
