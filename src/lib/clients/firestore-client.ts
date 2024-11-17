@@ -111,11 +111,37 @@ async function setUserSortOptions(
   }
 }
 
+async function setUserEmail(uid: string, email: string): Promise<void> {
+  try {
+    const userDocRef = doc(db, "users", uid);
+    await updateDoc(userDocRef, {
+      email,
+    });
+  } catch (error) {
+    console.error("Error updating user email: ", error);
+    handleError("Error updating user email.");
+  }
+}
+
+async function setUserUsername(uid: string, username: string): Promise<void> {
+  try {
+    const userDocRef = doc(db, "users", uid);
+    await updateDoc(userDocRef, {
+      username,
+    });
+  } catch (error) {
+    console.error("Error updating user username: ", error);
+    handleError("Error updating user username.");
+  }
+}
+
 const firestoreClient = {
   addNewUser,
   getUserByUID,
   getUserByUsername,
   getUserByEmail,
+  setUserEmail,
+  setUserUsername,
   setUserBookmarks,
   setUserTopics,
   setUserSortOptions,
