@@ -21,7 +21,6 @@ export default function BookmarksContextProvider({
   const toggleBookmark = async (repository: Repository) => {
     const isBookmarked = bookmarks.some((item) => item.id === repository.id);
 
-    // Step 1: Update bookmarks in local state
     const updatedBookmarks = isBookmarked
       ? bookmarks.filter((item) => item.id !== repository.id)
       : [...bookmarks, { ...repository, is_bookmarked: true }];
