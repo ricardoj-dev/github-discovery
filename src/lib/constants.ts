@@ -1,6 +1,9 @@
+import { TopicItem } from "@/types";
+
 const appConstants = {
   // GitHub
-  GIT_HUB_API_URL: import.meta.env.VITE_GITHUB_ACCESS_TOKEN,
+  gitHubApiUrl: import.meta.env.VITE_GIT_HUB_API_URL,
+  gitHubAccessToken: import.meta.env.VITE_GIT_HUB_ACCESS_TOKEN,
   // Firebase
   firebaseConfig: {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -11,6 +14,14 @@ const appConstants = {
     appId: import.meta.env.VITE_FIREBASE_APP_ID,
     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
   },
+  initialTopics: [
+    { name: "Vue", isActive: false },
+    { name: "TypeScript", isActive: false },
+    { name: "Javascript", isActive: false },
+    { name: "Go", isActive: false },
+    { name: "CSS", isActive: false },
+    { name: "Node", isActive: false },
+  ] as TopicItem[],
 };
 
 export default appConstants;
