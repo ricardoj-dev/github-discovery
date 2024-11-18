@@ -1,0 +1,41 @@
+{
+    "rewrites" : [
+        {   
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/"
+        },
+        {
+            "src": "/sign-in",
+            "dest": "/"
+        },
+        {
+            "src": "/sign-up",
+            "dest": "/"
+        },
+        {
+            "src": "/discovery",
+            "dest": "/"
+        },
+        {
+            "src": "/my-account",
+            "dest": "/"
+        }
+    ],
+    "headers": [
+    {
+      "source": "/(.*).(html|js|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
+}
