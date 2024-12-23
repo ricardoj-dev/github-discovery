@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import SignInForm from "../SignInForm";
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import SignInForm from '../SignInForm';
 
-vi.mock("../../lib/authService", () => {
+vi.mock('../../lib/authService', () => {
   return {
     authService: {
       signIn: vi.fn(),
@@ -10,30 +10,34 @@ vi.mock("../../lib/authService", () => {
   };
 });
 
-describe("SignInForm Component", () => {
-  it("should render the form correctly", () => {
+describe('SignInForm Component', () => {
+  it('should render the form correctly', () => {
+    // Given
     render(<SignInForm />);
 
-    expect(screen.getByPlaceholderText("Username")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
+    // Then
+    expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Sign In/i })
+      screen.getByRole('button', { name: /Sign In/i })
     ).toBeInTheDocument();
   });
 
-  it("should show validation errors if the input is invalid", async () => {
+  it('should show validation errors if the input is invalid', async () => {
+    // Given
     render(<SignInForm />);
 
-    const signInButton = screen.getByRole("button", { name: /Sign In/i });
-
+    // When
+    const signInButton = screen.getByRole('button', { name: /Sign In/i });
     fireEvent.click(signInButton);
 
+    // Then
     await waitFor(() => {
       expect(
-        screen.getByText("Username must have at least 8 characters.")
+        screen.getByText('Username must have at least 8 characters.')
       ).toBeInTheDocument();
       expect(
-        screen.getByText("Password must have at least 8 characters.")
+        screen.getByText('Password must have at least 8 characters.')
       ).toBeInTheDocument();
     });
   });
