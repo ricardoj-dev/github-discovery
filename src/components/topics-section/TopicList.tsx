@@ -1,7 +1,7 @@
-import { useTopicsContext } from "@/lib/hooks";
-import Carousel from "../Carousel";
-import { Button } from "../ui/button";
-import { TopicItem } from "@/types";
+import { useTopicsContext } from '@/lib/hooks';
+import { Button } from '../ui/Button';
+import { TopicItem } from '@/types';
+import Carousel from '../ui/carousel';
 
 const TopicList = () => {
   const { topics, toggleTopic } = useTopicsContext();
@@ -13,7 +13,7 @@ const TopicList = () => {
           <Button
             key={topic.name}
             onClick={() => toggleTopic(topic)}
-            variant={topic.isActive ? "selectedPill" : "pill"}
+            variant={topic.isActive ? 'selectedPill' : 'pill'}
           >
             {topic.name}
           </Button>
