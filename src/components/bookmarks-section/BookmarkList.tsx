@@ -1,7 +1,6 @@
-import { useBookmarksContext } from "../../lib/hooks";
-import Carousel from "../Carousel";
-import CarouselItem from "../CarouselItem";
-import NoResultsMessage from "../NoResultsMessage";
+import { useBookmarksContext } from '../../lib/hooks';
+import NoResultsMessage from '../NoResultsMessage';
+import CarouselContainer from '../CarouselContainer';
 
 const BookmarkList = () => {
   const { bookmarks } = useBookmarksContext();
@@ -10,22 +9,7 @@ const BookmarkList = () => {
     return <NoResultsMessage message="No bookmarks to show" />;
   }
 
-  return (
-    <>
-      <Carousel>
-        <>
-          {bookmarks.map((item, index) => (
-            <CarouselItem
-              key={index}
-              isFirstElement={index === 0}
-              isLastElement={index === bookmarks.length - 1}
-              repository={item}
-            />
-          ))}
-        </>
-      </Carousel>
-    </>
-  );
+  return <CarouselContainer repositories={bookmarks} />;
 };
 
 export default BookmarkList;
