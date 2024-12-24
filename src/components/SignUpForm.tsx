@@ -1,37 +1,37 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import authService from "@/lib/auth-service";
-import { handleError } from "@/lib/utils";
-import { useState } from "react";
-import { Button } from "./ui/button";
-import LoadingSpinner from "./LoadingSpinner";
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import authService from '@/lib/auth-service';
+import { handleError } from '@/lib/utils';
+import { useState } from 'react';
+import { Button } from '@/components/ui/Button';
+import LoadingSpinner from './LoadingSpinner';
 
 const signUpSchema = z
   .object({
     username: z
       .string()
       .trim()
-      .min(8, { message: "Username must have at least 8 characters." })
+      .min(8, { message: 'Username must have at least 8 characters.' })
       .toLowerCase(),
-    email: z.string().email({ message: "E-mail is required." }).toLowerCase(),
+    email: z.string().email({ message: 'E-mail is required.' }).toLowerCase(),
     password: z
       .string()
       .trim()
-      .min(8, { message: "Password must have at least 8 characters." })
+      .min(8, { message: 'Password must have at least 8 characters.' })
       .max(14),
     confirmPassword: z
       .string()
       .trim()
-      .min(8, { message: "Password must have at least 8 characters." })
+      .min(8, { message: 'Password must have at least 8 characters.' })
       .max(14),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["confirmPassword"],
+        code: 'custom',
+        message: 'The passwords did not match',
+        path: ['confirmPassword'],
       });
     }
   });
@@ -59,7 +59,7 @@ const SignUpForm = () => {
 
       setIsRedirecting(true);
 
-      window.location.replace("/discovery");
+      window.location.replace('/discovery'); // Explicar: tive problemas com o redirect do router, e nao tive tempo para fazer debug
     } catch (error) {
       handleError(error);
     } finally {
@@ -87,9 +87,9 @@ const SignUpForm = () => {
           disabled={isLoading}
           type="text"
           placeholder="Username"
-          {...register("username")}
+          {...register('username')}
           className={`w-full p-3 border rounded-lg outline-none ${
-            errors.username ? "border-red-500" : "border-gray-300"
+            errors.username ? 'border-red-500' : 'border-gray-300'
           }`}
         />
         {errors.username && (
@@ -101,9 +101,9 @@ const SignUpForm = () => {
           disabled={isLoading}
           type="text"
           placeholder="E-mail"
-          {...register("email")}
+          {...register('email')}
           className={`w-full p-3 border rounded-lg outline-none ${
-            errors.email ? "border-red-500" : "border-gray-300"
+            errors.email ? 'border-red-500' : 'border-gray-300'
           }`}
         />
         {errors.email && (
@@ -115,9 +115,9 @@ const SignUpForm = () => {
           disabled={isLoading}
           type="password"
           placeholder="Password"
-          {...register("password")}
+          {...register('password')}
           className={`w-full p-3 border rounded-lg outline-none ${
-            errors.password ? "border-red-500" : "border-gray-300"
+            errors.password ? 'border-red-500' : 'border-gray-300'
           }`}
         />
         {errors.password && (
@@ -129,9 +129,9 @@ const SignUpForm = () => {
           disabled={isLoading}
           type="password"
           placeholder="Confirm Password"
-          {...register("confirmPassword")}
+          {...register('confirmPassword')}
           className={`w-full p-3 border rounded-lg outline-none ${
-            errors.password ? "border-red-500" : "border-gray-300"
+            errors.password ? 'border-red-500' : 'border-gray-300'
           }`}
         />
         {errors.confirmPassword && (
@@ -140,11 +140,11 @@ const SignUpForm = () => {
           </p>
         )}
       </div>
-      <Button variant="formActive" size={"form"} disabled={isLoading}>
+      <Button variant="formActive" size={'form'} disabled={isLoading}>
         {isLoading ? (
           <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
         ) : (
-          "Sign Up"
+          'Sign Up'
         )}
       </Button>
     </form>
