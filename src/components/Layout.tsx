@@ -40,7 +40,7 @@ const Header = () => {
 
 const Content = () => {
   return (
-    <main className="flex-grow bg-gray-100 p-8 mt-16">
+    <main className="p-8 mt-16">
       <Outlet />
     </main>
   );
@@ -56,9 +56,11 @@ const Footer = () => {
 
 const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="bg-gray-100 min-h-screen flex flex-col">
       <Header />
-      <Content />
+      <div className="flex-grow flex flex-col">
+        <Content />
+      </div>
       <Footer />
       <Toaster position="top-center" />
     </div>
