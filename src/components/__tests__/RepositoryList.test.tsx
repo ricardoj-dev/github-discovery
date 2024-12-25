@@ -14,7 +14,7 @@ vi.mock('../Carousel', () => ({
     <div data-testid="carousel">{children}</div>
   ),
 }));
-vi.mock('../CarouselItem', () => ({
+vi.mock('../RepositoryItem', () => ({
   default: ({ repository }: { repository: Repository }) => (
     <div data-testid="carousel-item">{repository.full_name}</div>
   ),

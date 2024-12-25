@@ -1,6 +1,6 @@
 import { useBookmarksContext } from '@/lib/hooks';
 import Carousel from './ui/carousel';
-import CarouselItem from './ui/carousel/CarouselItem';
+import RepositoryItem from './ui/carousel/RepositoryItem';
 import { Repository } from '@/types';
 
 const CarouselContainer = ({
@@ -17,7 +17,7 @@ const CarouselContainer = ({
   return (
     <Carousel>
       {repositories.map((repository) => (
-        <CarouselItem
+        <RepositoryItem
           key={repository.id}
           {...repository}
           onBookmarkClick={handleBookmarkToggle}

@@ -7,7 +7,7 @@ import IconCodeSandbox from '@/components/icons/IconCodeSandbox';
 import IconGithub from '@/components/icons/IconGithub';
 import IconRepoForkedTwentyFour from '@/components/icons/IconRepoForkedTwentyFour';
 
-type CarouselItemProps = {
+type RepositoryItemProps = {
   id: string;
   full_name: string;
   description: string;
@@ -19,7 +19,7 @@ type CarouselItemProps = {
   onBookmarkClick?: (repository: Repository) => void;
 };
 
-const CarouselItem = ({
+const RepositoryItem = ({
   id,
   full_name,
   description,
@@ -29,7 +29,7 @@ const CarouselItem = ({
   html_url,
   is_bookmarked,
   onBookmarkClick,
-}: CarouselItemProps) => {
+}: RepositoryItemProps) => {
   const splittedFullName = full_name.split('/');
 
   const handleStarClick = async (
@@ -104,7 +104,7 @@ const CarouselItem = ({
   );
 };
 
-export default CarouselItem;
+export default RepositoryItem;
 
 type DataContainerProps = {
   children: React.ReactNode;
