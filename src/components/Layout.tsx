@@ -1,13 +1,13 @@
-import { useAuth } from "@/lib/hooks";
-import { Toaster } from "react-hot-toast";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { useAuth } from '@/lib/hooks';
+import { Toaster } from 'react-hot-toast';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
   const { user, signOut } = useAuth();
 
   return (
-    <header className="bg-gray-400 shadow-md text-white py-4 px-8">
+    <header className="fixed top-0 left-0 w-full bg-gray-400 shadow-md text-white py-4 px-8 z-50">
       <nav className="flex justify-between items-center">
         <div className="flex gap-2">
           <Link to="/discovery">
@@ -16,7 +16,7 @@ const Header = () => {
           <Link
             to="/discovery"
             className={`${
-              location.pathname === "/discovery" ? "underline" : null
+              location.pathname === '/discovery' ? 'underline' : null
             }`}
           >
             <h3 className="text-lg">Discovery</h3>
@@ -26,7 +26,7 @@ const Header = () => {
           <Link
             to="/my-account"
             className={`${
-              location.pathname === "/my-account" ? "underline" : null
+              location.pathname === '/my-account' ? 'underline' : null
             }`}
           >
             <h3 className="text-lg">{user?.username}</h3>
@@ -40,7 +40,7 @@ const Header = () => {
 
 const Content = () => {
   return (
-    <main className="flex-grow bg-gray-100 p-8">
+    <main className="flex-grow bg-gray-100 p-8 mt-16">
       <Outlet />
     </main>
   );
