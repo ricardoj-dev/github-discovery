@@ -3,7 +3,7 @@ import { Topic } from '@/types';
 import RepositoryList from './RepositoryList';
 import SectionItem from './SectionItem';
 import TopicHeader from './TopicHeader';
-import LoadingSpinner from '../LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import NoResultsMessage from '../NoResultsMessage';
 
 const RepositoriesSection = () => {

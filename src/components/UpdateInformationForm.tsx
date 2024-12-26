@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from './ui/button';
-import LoadingSpinner from './LoadingSpinner';
+import { Button } from '@/components/ui/button';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useState } from 'react';
 import { useAuth } from '@/lib/hooks';
 import userService from '@/lib/user-service';

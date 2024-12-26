@@ -1,7 +1,7 @@
 import RepositoriesSection from '@/components/repositories-section';
 import BookmarksSection from '@/components/bookmarks-section';
 import TopicsSection from '@/components/topics-section';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useRepositoriesContext } from '@/lib/hooks';
 
 export default function DiscoveryPage() {

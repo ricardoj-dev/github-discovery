@@ -2,7 +2,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import SignInForm from '@/components/SignInForm';
 import { useAuth } from '@/lib/hooks';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function SignInPage() {
   const { isAuthenticated, isLoadingUser } = useAuth();
