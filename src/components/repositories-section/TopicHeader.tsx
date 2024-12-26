@@ -3,11 +3,11 @@ import { SortOption, Topic } from '@/types';
 import IconDown from '../icons/IconDown';
 import SortDialog from '@/components/ui/sort-dialog';
 
-type TopicOfRepositoryHeaderProps = {
+type TopicHeaderProps = {
   topic: Topic;
 };
 
-const TopicOfRepositoryHeader = ({ topic }: TopicOfRepositoryHeaderProps) => {
+const TopicHeader = ({ topic }: TopicHeaderProps) => {
   const { fetchRepositoriesBySortOption, sortOptions } =
     useRepositoriesContext();
 
@@ -44,4 +44,4 @@ const TopicOfRepositoryHeader = ({ topic }: TopicOfRepositoryHeaderProps) => {
   );
 };
 
-export default TopicOfRepositoryHeader;
+export default TopicHeader;

@@ -1,10 +1,10 @@
-import { useRepositoriesContext } from "@/lib/hooks";
-import { Topic } from "@/types";
-import RepositoryList from "./RepositoryList";
-import SectionItem from "./SectionItem";
-import TopicOfRepositoryHeader from "./TopicOfRepositoryHeader";
-import LoadingSpinner from "../LoadingSpinner";
-import NoResultsMessage from "../NoResultsMessage";
+import { useRepositoriesContext } from '@/lib/hooks';
+import { Topic } from '@/types';
+import RepositoryList from './RepositoryList';
+import SectionItem from './SectionItem';
+import TopicHeader from './TopicHeader';
+import LoadingSpinner from '../LoadingSpinner';
+import NoResultsMessage from '../NoResultsMessage';
 
 const RepositoriesSection = () => {
   const { repositoriesFromTopics, loadingRepositoriesFromTopics } =
@@ -14,7 +14,7 @@ const RepositoriesSection = () => {
     <section>
       {Object.keys(repositoriesFromTopics).map((topic) => (
         <SectionItem key={topic}>
-          <TopicOfRepositoryHeader topic={topic as Topic} />
+          <TopicHeader topic={topic as Topic} />
 
           {loadingRepositoriesFromTopics[topic as Topic] && (
             <LoadingSpinner
