@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import SignUpForm from "../components/SignUpForm";
-import { Toaster } from "react-hot-toast";
+import { Link } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import SignUpForm from '@/components/SignUpForm';
 
 export default function SignUpPage() {
   return (
@@ -10,8 +10,8 @@ export default function SignUpPage() {
       <SignUpForm />
 
       <p className="mt-2 text-sm">
-        Have already an account?{" "}
-        <Link className="text-blue-600 underline" to={"/sign-in"}>
+        Have already an account?{' '}
+        <Link className="text-blue-600 underline" to={'/sign-in'}>
           Click here to sign in.
         </Link>
       </p>
