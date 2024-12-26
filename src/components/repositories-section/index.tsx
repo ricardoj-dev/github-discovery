@@ -17,10 +17,7 @@ const RepositoriesSection = () => {
           <TopicHeader topic={topic as Topic} />
 
           {loadingRepositoriesFromTopics[topic as Topic] && (
-            <LoadingSpinner
-              classesContainer="flex-grow"
-              classesSpinner="w-12 h-12 border-black"
-            />
+            <LoadingSpinner size="large" />
           )}
 
           {!loadingRepositoriesFromTopics[topic as Topic] &&

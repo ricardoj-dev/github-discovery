@@ -68,12 +68,7 @@ const SignUpForm = () => {
   };
 
   if (isLoading || isRedirecting) {
-    return (
-      <LoadingSpinner
-        classesContainer="fixed top-0 left-0 w-full h-full flex-grow min-h-screen flex flex-col justify-items-center bg-gray-400 z-50"
-        classesSpinner="border-black"
-      />
-    );
+    return <LoadingSpinner variant="overlay" size="large" />;
   }
 
   return (
@@ -141,11 +136,7 @@ const SignUpForm = () => {
         )}
       </div>
       <Button variant="formActive" size={'form'} disabled={isLoading}>
-        {isLoading ? (
-          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
-        ) : (
-          'Sign Up'
-        )}
+        {isLoading ? <LoadingSpinner size="small" /> : 'Sign Up'}
       </Button>
     </form>
   );

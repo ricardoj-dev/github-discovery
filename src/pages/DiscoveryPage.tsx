@@ -9,12 +9,7 @@ export default function DiscoveryPage() {
 
   return (
     <div className="flex flex-col justify-start">
-      {isGlobalLoading && (
-        <LoadingSpinner
-          classesContainer="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 z-50"
-          classesSpinner="border-black"
-        />
-      )}
+      {isGlobalLoading && <LoadingSpinner variant="overlay" size="large" />}
       <BookmarksSection />
       <TopicsSection />
       <RepositoriesSection />

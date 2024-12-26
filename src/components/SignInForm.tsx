@@ -78,11 +78,7 @@ const SignInForm = () => {
         )}
       </div>
       <Button variant="formActive" size={'form'} disabled={isLoading}>
-        {isLoading === true ? (
-          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
-        ) : (
-          'Sign In'
-        )}
+        {isLoading === true ? <LoadingSpinner size="small" /> : 'Sign In'}
       </Button>
     </form>
   );

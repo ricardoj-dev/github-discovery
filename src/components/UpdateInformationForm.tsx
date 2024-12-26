@@ -84,11 +84,7 @@ const UpdateInformationForm = () => {
         )}
       </div>
       <Button variant="formActive" size={'form'} disabled={isLoading}>
-        {isLoading === true ? (
-          <LoadingSpinner classesSpinner="h-5 w-5 border-2" />
-        ) : (
-          'Save'
-        )}
+        {isLoading === true ? <LoadingSpinner size="small" /> : 'Save'}
       </Button>
     </form>
   );
