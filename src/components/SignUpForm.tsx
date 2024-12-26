@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import authService from '@/lib/auth-service';
 import { handleError } from '@/lib/utils';
 import { useState } from 'react';
-import { Button } from '../components/ui/Button';
+import { Button } from './ui/button';
 import LoadingSpinner from './LoadingSpinner';
 
 const signUpSchema = z

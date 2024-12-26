@@ -1,5 +1,5 @@
 import { useTopicsContext } from '@/lib/hooks';
-import { Button } from '../ui/Button';
+import { Button } from '../ui/button';
 import { TopicItem } from '@/types';
 import Carousel from '../ui/carousel';
 
