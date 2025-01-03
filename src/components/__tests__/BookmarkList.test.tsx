@@ -1,27 +1,28 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import BookmarkList from '../../components/bookmarks-section/BookmarkList';
-import { useBookmarksContext } from '../../lib/hooks';
+import useBookmarksStore from '@/stores/bookmarksStore';
 
-vi.mock('../../lib/hooks', () => {
-  return {
-    useBookmarksContext: vi.fn(),
-  };
-});
+vi.mock('@/stores/bookmarksStore', () => ({
+  __esModule: true,
+  default: vi.fn(),
+}));
 
 describe('BookmarkList Component', () => {
   it('should display a message when there are no bookmarks', () => {
-    (
-      useBookmarksContext as unknown as ReturnType<typeof vi.fn>
-    ).mockImplementation(() => ({
+    // Mock bookmarks as empty
+    vi.mocked(useBookmarksStore).mockReturnValue({
       bookmarks: [],
-    }));
+      isBookmarksLoading: false,
+      setBookmarks: vi.fn(),
+      toggleBookmark: vi.fn(),
+    });
 
     // When
     render(<BookmarkList />);
 
     // Then
-    expect(screen.getByText('No bookmarks to show')).toBeInTheDocument();
+    expect(screen.getByText('No bookmarks to show.')).toBeInTheDocument();
   });
 
   it('should display bookmarks when they exist', () => {
@@ -49,11 +50,13 @@ describe('BookmarkList Component', () => {
       },
     ];
 
-    (
-      useBookmarksContext as unknown as ReturnType<typeof vi.fn>
-    ).mockImplementation(() => ({
+    // Mock bookmarks with data
+    vi.mocked(useBookmarksStore).mockReturnValue({
       bookmarks: mockBookmarks,
-    }));
+      isBookmarksLoading: false,
+      setBookmarks: vi.fn(),
+      toggleBookmark: vi.fn(),
+    });
 
     // When
     render(<BookmarkList />);
