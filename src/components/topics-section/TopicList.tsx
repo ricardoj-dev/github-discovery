@@ -1,10 +1,11 @@
-import { useTopicsContext } from '@/lib/hooks';
 import { Button } from '@/components/ui/button';
 import { TopicItem } from '@/types';
 import Carousel from '../ui/carousel';
+import useTopicsStore from '@/stores/topicsStore';
 
 const TopicList = () => {
-  const { topics, toggleTopic } = useTopicsContext();
+  const topics = useTopicsStore((state) => state.topics);
+  const toggleTopic = useTopicsStore((state) => state.toggleTopic);
 
   return (
     <Carousel>
