@@ -1,10 +1,22 @@
-import { useAuth } from '@/lib/hooks';
 import { Toaster } from 'react-hot-toast';
 import { Outlet, Link, useLocation } from 'react-router-dom';
+import useAuthStore from '@/stores/authStore';
+import authService from '@/lib/auth-service';
 
 const Header = () => {
   const location = useLocation();
-  const { user, signOut } = useAuth();
+  const user = useAuthStore((state) => state.user);
+  const signOut = useAuthStore((state) => state.signOut);
+
+  const handleSignOut = async () => {
+    try {
+      await authService.logOut();
+      signOut();
+      window.location.replace('/sign-in');
+    } catch (error) {
+      console.error('Error during sign out:', error);
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full bg-gray-400 shadow-md text-white py-4 px-8 z-50">
@@ -31,7 +43,7 @@ const Header = () => {
           >
             <h3 className="text-lg">{user?.username}</h3>
           </Link>
-          <button onClick={() => signOut()}>Logout</button>
+          <button onClick={handleSignOut}>Logout</button>
         </div>
       </nav>
     </header>
