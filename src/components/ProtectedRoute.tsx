@@ -1,14 +1,15 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "@/lib/hooks";
+import { Navigate, Outlet } from 'react-router-dom';
+import useAuthStore from '@/stores/authStore';
+import LoadingSpinner from './ui/LoadingSpinner';
 
 const ProtectedRoute = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoadingUser } = useAuthStore();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/sign-in" />;
+  if (isLoadingUser) {
+    return <LoadingSpinner variant="overlay" size="large" />;
   }
 
-  return <Outlet />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/sign-in" />;
 };
 
 export default ProtectedRoute;

@@ -1,8 +1,8 @@
-import { useAuth } from "@/lib/hooks";
-import { Navigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom';
+import useAuthStore from '@/stores/authStore';
 
 const App = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthStore();
 
   return isAuthenticated ? (
     <Navigate to="/discovery" />

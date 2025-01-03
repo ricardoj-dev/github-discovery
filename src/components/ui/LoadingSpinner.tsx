@@ -28,7 +28,7 @@ const LoadingSpinner = ({
     <div className={cn(variantClasses[variant])}>
       <div
         className={cn(
-          'border-black-800 border-solid rounded-full animate-spin',
+          'border-black border-solid rounded-full animate-spin',
           'border-t-transparent',
           sizeClasses[size]
         )}

@@ -1,12 +1,12 @@
-import { useBookmarksContext } from '../../lib/hooks';
-import NoResultsMessage from '../NoResultsMessage';
+import InformationMessage from '../ui/InformationMessage';
 import CarouselContainer from '../CarouselContainer';
+import useBookmarksStore from '@/stores/bookmarksStore';
 
 const BookmarkList = () => {
-  const { bookmarks } = useBookmarksContext();
+  const bookmarks = useBookmarksStore().bookmarks;
 
   if (bookmarks.length === 0) {
-    return <NoResultsMessage message="No bookmarks to show" />;
+    return <InformationMessage message="No bookmarks to show." />;
   }
 
   return <CarouselContainer repositories={bookmarks} />;

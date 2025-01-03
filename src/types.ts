@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { User } from 'firebase/auth';
 export interface Repository {
   id: string;
   full_name: string;
@@ -17,9 +17,9 @@ export interface ApplicationUser extends User {
   sortOptions?: SortOptionsMap;
 }
 
-export type Topic = "Vue" | "TypeScript" | "Javascript" | "Go" | "CSS" | "Node";
+export type Topic = 'Vue' | 'TypeScript' | 'Javascript' | 'Go' | 'CSS' | 'Node';
 
-export type SortOption = "stars" | "forks" | "interactions" | "updated";
+export type SortOption = 'stars' | 'forks' | 'interactions' | 'updated';
 
 export type FetchRepositoriesResponse = {
   data: {

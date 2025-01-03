@@ -1,4 +1,4 @@
-import UpdateInformationForm from "../components/UpdateInformationForm";
+import UpdateInformationForm from '../components/UpdateInformationForm';
 
 export default function MyAccountPage() {
   return (

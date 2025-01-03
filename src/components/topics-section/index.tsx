@@ -1,4 +1,4 @@
-import TopicList from "./TopicList";
+import TopicList from './TopicList';
 
 const TopicsSection = () => {
   return (

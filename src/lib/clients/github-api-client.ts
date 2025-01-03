@@ -3,8 +3,8 @@ import {
   Repository,
   SortOption,
   Topic,
-} from "@/types";
-import appConstants from "../constants";
+} from '@/types';
+import appConstants from '../constants';
 
 async function fetchRepositories(
   topic: Topic,
@@ -17,24 +17,24 @@ async function fetchRepositories(
   }
 
   const response = await fetch(url, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      Accept: "application/vnd.github+json",
+      Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${appConstants.gitHubAccessToken}`,
-      "X-GitHub-Api-Version": "2022-11-28",
+      'X-GitHub-Api-Version': '2022-11-28',
     },
   });
 
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error('Network response was not ok');
   }
 
   const data = await response.json();
 
   return {
     data,
-    rateLimitRemaining: response.headers.get("X-RateLimit-Remaining"),
-    rateLimitReset: response.headers.get("X-RateLimit-Reset"),
+    rateLimitRemaining: response.headers.get('X-RateLimit-Remaining'),
+    rateLimitReset: response.headers.get('X-RateLimit-Reset'),
   };
 }
 
@@ -45,7 +45,7 @@ async function fetchRepositoriesWithCache(
   topic: Topic,
   sort?: SortOption
 ): Promise<FetchRepositoriesResponse> {
-  const cacheKey = `${topic}-${sort || "default"}`;
+  const cacheKey = `${topic}-${sort || 'default'}`;
   const now = Date.now();
 
   const cachedInMemory = cache.get(cacheKey);

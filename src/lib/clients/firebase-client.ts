@@ -1,11 +1,11 @@
-import { auth } from "@/config/firebase";
+import { auth } from '@/config/firebase';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   UserCredential,
   updateEmail,
-} from "firebase/auth";
+} from 'firebase/auth';
 
 async function loginUserWithEmailAndPassword(
   email: string,

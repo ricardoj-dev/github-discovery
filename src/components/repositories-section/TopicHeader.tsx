@@ -1,15 +1,18 @@
-import { useDropdown, useRepositoriesContext } from '@/lib/hooks';
+import { useDropdown } from '@/lib/hooks';
 import { SortOption, Topic } from '@/types';
 import IconDown from '../icons/IconDown';
 import SortDialog from '@/components/ui/sort-dialog';
+import useRepositoriesStore from '@/stores/repositoriesStore';
 
 type TopicHeaderProps = {
   topic: Topic;
 };
 
 const TopicHeader = ({ topic }: TopicHeaderProps) => {
-  const { fetchRepositoriesBySortOption, sortOptions } =
-    useRepositoriesContext();
+  const fetchRepositoriesBySortOption = useRepositoriesStore(
+    (state) => state.fetchRepositoriesBySortOption
+  );
+  const sortOptions = useRepositoriesStore((state) => state.sortOptions);
 
   const {
     isOpen: isVisibleSortDialog,

@@ -1,36 +1,41 @@
-import { useRepositoriesContext } from '@/lib/hooks';
 import { Topic } from '@/types';
 import RepositoryList from './RepositoryList';
 import SectionItem from './SectionItem';
 import TopicHeader from './TopicHeader';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import NoResultsMessage from '../NoResultsMessage';
+import InformationMessage from '../ui/InformationMessage';
+import useRepositoriesStore from '@/stores/repositoriesStore';
+import useTopicsStore from '@/stores/topicsStore';
+import { useMemo } from 'react';
 
 const RepositoriesSection = () => {
-  const { repositoriesFromTopics, loadingRepositoriesFromTopics } =
-    useRepositoriesContext();
+  const repositoriesFromTopics = useRepositoriesStore(
+    (state) => state.repositoriesFromTopics
+  );
+  const loadingRepositoriesFromTopics = useRepositoriesStore(
+    (state) => state.loadingRepositoriesFromTopics
+  );
+  const topics = useTopicsStore((state) => state.topics);
+
+  const activeTopics = useMemo(
+    () => topics.filter((topic) => topic.isActive).map((t) => t.name),
+    [topics]
+  );
 
   return (
-    <section>
-      {Object.keys(repositoriesFromTopics).map((topic) => (
+    <section id="repositories">
+      {activeTopics.map((topic) => (
         <SectionItem key={topic}>
           <TopicHeader topic={topic as Topic} />
 
-          {loadingRepositoriesFromTopics[topic as Topic] && (
-            <LoadingSpinner size="large" />
+          {loadingRepositoriesFromTopics[topic as Topic] ? (
+            <InformationMessage message={`Loading ${topic} repositories...`} />
+          ) : repositoriesFromTopics[topic as Topic]?.length ? (
+            <RepositoryList
+              repositories={repositoriesFromTopics[topic as Topic]}
+            />
+          ) : (
+            <InformationMessage message={`No ${topic} repositories to show`} />
           )}
-
-          {!loadingRepositoriesFromTopics[topic as Topic] &&
-            !repositoriesFromTopics[topic as Topic] && (
-              <NoResultsMessage message={`No ${topic} repositories to show`} />
-            )}
-
-          {!loadingRepositoriesFromTopics[topic as Topic] &&
-            repositoriesFromTopics[topic as Topic] && (
-              <RepositoryList
-                repositories={repositoriesFromTopics[topic as Topic]}
-              />
-            )}
         </SectionItem>
       ))}
     </section>

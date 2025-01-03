@@ -1,18 +1,18 @@
 import { Link, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import SignInForm from '@/components/SignInForm';
-import { useAuth } from '@/lib/hooks';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import useAuthStore from '@/stores/authStore';
 
 export default function SignInPage() {
-  const { isAuthenticated, isLoadingUser } = useAuth();
+  const { isAuthenticated, isLoadingUser } = useAuthStore();
+
+  if (isLoadingUser) {
+    return <LoadingSpinner variant="overlay" size="large" />;
+  }
 
   if (isAuthenticated) {
     return <Navigate to="/discovery" />;
-  }
-
-  if (!isAuthenticated && isLoadingUser) {
-    return <LoadingSpinner variant="overlay" size="large" />;
   }
 
   return (
