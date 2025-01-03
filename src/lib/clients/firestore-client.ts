@@ -1,5 +1,5 @@
-import { db } from "@/config/firebase";
-import { Repository, SortOptionsMap, TopicItem } from "@/types";
+import { db } from '@/config/firebase';
+import { Repository, SortOptionsMap, TopicItem } from '@/types';
 import {
   collection,
   doc,
@@ -11,16 +11,16 @@ import {
   setDoc,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { handleError } from "../utils";
-import appConstants from "../constants";
+} from 'firebase/firestore';
+import { handleError } from '../utils';
+import appConstants from '../constants';
 
 async function addNewUser(
   uid: string,
   username: string,
   email: string
 ): Promise<void> {
-  await setDoc(doc(collection(db, "users"), uid), {
+  await setDoc(doc(collection(db, 'users'), uid), {
     uid,
     username,
     email,
@@ -32,7 +32,7 @@ async function addNewUser(
 
 async function getUserByUID(uid: string): Promise<DocumentData | null> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     const userSnapshot = await getDoc(userDocRef);
 
     if (userSnapshot.exists()) {
@@ -41,7 +41,7 @@ async function getUserByUID(uid: string): Promise<DocumentData | null> {
       return null;
     }
   } catch (error) {
-    console.error("Error fetching user by uid: ", error);
+    console.error('Error fetching user by uid: ', error);
     return null;
   }
 }
@@ -49,11 +49,11 @@ async function getUserByUID(uid: string): Promise<DocumentData | null> {
 async function getUserByUsername(
   username: string
 ): Promise<QuerySnapshot<DocumentData, DocumentData>> {
-  const usersCollectionRef = collection(db, "users");
+  const usersCollectionRef = collection(db, 'users');
 
   const usernameQuery = query(
     usersCollectionRef,
-    where("username", "==", username)
+    where('username', '==', username)
   );
 
   return await getDocs(usernameQuery);
@@ -62,9 +62,9 @@ async function getUserByUsername(
 async function getUserByEmail(
   email: string
 ): Promise<QuerySnapshot<DocumentData, DocumentData>> {
-  const usersCollectionRef = collection(db, "users");
+  const usersCollectionRef = collection(db, 'users');
 
-  const emailQuery = query(usersCollectionRef, where("email", "==", email));
+  const emailQuery = query(usersCollectionRef, where('email', '==', email));
 
   return await getDocs(emailQuery);
 }
@@ -74,25 +74,25 @@ async function setUserBookmarks(
   bookmarks: Repository[]
 ): Promise<void> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     await updateDoc(userDocRef, {
       bookmarks,
     });
   } catch (error) {
-    console.error("Error updating user bookmarks: ", error);
-    handleError("Error updating user bookmarks.");
+    console.error('Error updating user bookmarks: ', error);
+    handleError('Error updating user bookmarks.');
   }
 }
 
 async function setUserTopics(uid: string, topics: TopicItem[]): Promise<void> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     await updateDoc(userDocRef, {
       topics,
     });
   } catch (error) {
-    console.error("Error updating user topics: ", error);
-    handleError("Error updating user topics.");
+    console.error('Error updating user topics: ', error);
+    handleError('Error updating user topics.');
   }
 }
 
@@ -101,37 +101,37 @@ async function setUserSortOptions(
   sortOptions: SortOptionsMap
 ): Promise<void> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     await updateDoc(userDocRef, {
       sortOptions,
     });
   } catch (error) {
-    console.error("Error updating user sortOptions: ", error);
-    handleError("Error updating user sortOptions.");
+    console.error('Error updating user sortOptions: ', error);
+    handleError('Error updating user sortOptions.');
   }
 }
 
 async function setUserEmail(uid: string, email: string): Promise<void> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     await updateDoc(userDocRef, {
       email,
     });
   } catch (error) {
-    console.error("Error updating user email: ", error);
-    handleError("Error updating user email.");
+    console.error('Error updating user email: ', error);
+    handleError('Error updating user email.');
   }
 }
 
 async function setUserUsername(uid: string, username: string): Promise<void> {
   try {
-    const userDocRef = doc(db, "users", uid);
+    const userDocRef = doc(db, 'users', uid);
     await updateDoc(userDocRef, {
       username,
     });
   } catch (error) {
-    console.error("Error updating user username: ", error);
-    handleError("Error updating user username.");
+    console.error('Error updating user username: ', error);
+    handleError('Error updating user username.');
   }
 }
 

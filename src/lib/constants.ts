@@ -1,4 +1,4 @@
-import { TopicItem } from "@/types";
+import { TopicItem } from '@/types';
 
 const appConstants = {
   // GitHub
@@ -15,12 +15,12 @@ const appConstants = {
     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
   },
   initialTopics: [
-    { name: "Vue", isActive: false },
-    { name: "TypeScript", isActive: false },
-    { name: "Javascript", isActive: false },
-    { name: "Go", isActive: false },
-    { name: "CSS", isActive: false },
-    { name: "Node", isActive: false },
+    { name: 'Vue', isActive: false },
+    { name: 'TypeScript', isActive: false },
+    { name: 'Javascript', isActive: false },
+    { name: 'Go', isActive: false },
+    { name: 'CSS', isActive: false },
+    { name: 'Node', isActive: false },
   ] as TopicItem[],
 };
 

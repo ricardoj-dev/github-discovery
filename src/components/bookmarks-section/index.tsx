@@ -1,4 +1,4 @@
-import BookmarkList from "./BookmarkList";
+import BookmarkList from './BookmarkList';
 
 const BookmarksSection = () => {
   return (

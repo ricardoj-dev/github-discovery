@@ -1,5 +1,5 @@
-import firebaseClient from "./clients/firebase-client";
-import firestoreClient from "./clients/firestore-client";
+import firebaseClient from './clients/firebase-client';
+import firestoreClient from './clients/firestore-client';
 
 async function setUsernameAndEmail(
   uid: string,
