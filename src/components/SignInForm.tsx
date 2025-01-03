@@ -1,11 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { useState } from 'react';
 import authService from '@/lib/auth-service';
 import { handleError } from '@/lib/utils';
+import useAuthStore from '@/stores/authStore';
+import { ApplicationUser } from '@/types';
+import LoadingButton from './ui/LoadingButton';
+import appConstants from '@/lib/constants';
+import firestoreClient from '@/lib/clients/firestore-client';
 
 const signInSchema = z.object({
   username: z
@@ -23,7 +25,7 @@ const signInSchema = z.object({
 type SignInSchema = z.infer<typeof signInSchema>;
 
 const SignInForm = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { setUser, setLoading, isLoadingUser } = useAuthStore();
 
   const {
     register,
@@ -34,14 +36,27 @@ const SignInForm = () => {
   });
 
   const handleSignIn = async (data: SignInSchema) => {
-    setIsLoading(true);
+    setLoading(true);
 
     try {
-      await authService.signIn(data.username, data.password);
+      const userData = await authService.signIn(data.username, data.password);
+      const userFromFirestore = await firestoreClient.getUserByUID(
+        userData.user.uid
+      );
+
+      const applicationUser: ApplicationUser = {
+        ...userData.user,
+        username: userData.user.displayName || data.username,
+        bookmarks: userFromFirestore?.bookmarks || [],
+        sortOptions: userFromFirestore?.sortOptions || {},
+        topics: userFromFirestore?.topics || appConstants.initialTopics,
+      };
+
+      setUser(applicationUser);
     } catch (error) {
       handleError(error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -77,9 +92,9 @@ const SignInForm = () => {
           <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
         )}
       </div>
-      <Button variant="formActive" size={'form'} disabled={isLoading}>
-        {isLoading === true ? <LoadingSpinner size="small" /> : 'Sign In'}
-      </Button>
+      <LoadingButton type="submit" isLoading={isLoadingUser} className="w-full">
+        Sign In
+      </LoadingButton>
     </form>
   );
 };
