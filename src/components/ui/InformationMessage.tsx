@@ -2,7 +2,7 @@ type ErrorMessageProps = {
   message: string;
 };
 
-const NoResultsMessage = ({ message }: ErrorMessageProps) => {
+const InformationMessage = ({ message }: ErrorMessageProps) => {
   return (
     <div className="flex-grow flex flex-col items-center justify-center">
       <p className="text-xl">{message}</p>
@@ -10,4 +10,4 @@ const NoResultsMessage = ({ message }: ErrorMessageProps) => {
   );
 };
 
-export default NoResultsMessage;
+export default InformationMessage;
