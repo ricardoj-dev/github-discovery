@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useState } from 'react';
-import { useAuth } from '@/lib/hooks';
 import userService from '@/lib/user-service';
 import { handleError } from '@/lib/utils';
+import useAuthStore from '@/stores/authStore';
 
 const updateInformationSchema = z.object({
   username: z
@@ -20,7 +20,7 @@ const updateInformationSchema = z.object({
 type UpdateInformationSchema = z.infer<typeof updateInformationSchema>;
 
 const UpdateInformationForm = () => {
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
