@@ -3,20 +3,23 @@ import { render, screen } from '@testing-library/react';
 import RepositoryList from '../../components/repositories-section/RepositoryList';
 import { Repository } from '../../types';
 
-vi.mock('../../lib/hooks', () => {
-  return {
-    useTopicsContext: vi.fn(),
-  };
-});
+vi.mock('@/stores/bookmarksStore', () => ({
+  default: () => ({
+    toggleBookmark: vi.fn(),
+  }),
+}));
 
-vi.mock('../Carousel', () => ({
+// Carousel Mock
+vi.mock('@/components/ui/carousel', () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="carousel">{children}</div>
   ),
 }));
-vi.mock('../RepositoryItem', () => ({
-  default: ({ repository }: { repository: Repository }) => (
-    <div data-testid="carousel-item">{repository.full_name}</div>
+
+// RepositoryItem Mock
+vi.mock('@/components/ui/carousel/RepositoryItem', () => ({
+  default: ({ full_name }: { full_name: string }) => (
+    <div data-testid="carousel-item">{full_name}</div>
   ),
 }));
 
